@@ -1,9 +1,17 @@
+from colorama import init
+from termcolor import colored
+
+
 class ChessPiece:
     def __init__(self, color):
         self.color = color
 
     def __str__(self):
-        return self.symbol
+        return (
+            colored(self.symbol, "blue")
+            if self.color == "white"
+            else colored(self.symbol, "red")
+        )
 
 
 class King(ChessPiece):
