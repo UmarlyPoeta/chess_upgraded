@@ -1,7 +1,6 @@
 # /home/patryk/projects/chess_upgraded/src/__init__.py
 from pieces import King, Queen, Rook, Bishop, Knight, Pawn
 from colorama import init
-from termcolor import colored
 
 init(autoreset=True)
 
