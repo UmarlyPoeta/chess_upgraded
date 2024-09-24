@@ -2,14 +2,21 @@ from utils.chess_board import ChessBoard
 
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
-    if end_pos[1] != start_pos[1] or abs(end_pos[0] - start_pos[0]) > 2:
-        return False
+    direction = 1 if board.board[start_pos[0]][start_pos[1]].islower() else -1
+    start_row = 1 if direction == 1 else 6
 
-    for row in range(start_pos[0], end_pos[0] + 1):
-        if board.board[row][end_pos[1]] != ".":
-            return False
+    if end_pos[1] == start_pos[1]:  # Moving forward
+        if end_pos[0] - start_pos[0] == direction:
+            return board.board[end_pos[0]][end_pos[1]] == "."
+        elif end_pos[0] - start_pos[0] == 2 * direction and start_pos[0] == start_row:
+            return (
+                board.board[start_pos[0] + direction][start_pos[1]] == "."
+                and board.board[end_pos[0]][end_pos[1]] == "."
+            )
+    elif abs(end_pos[1] - start_pos[1]) == 1 and end_pos[0] - start_pos[0] == direction:
+        return board.board[end_pos[0]][end_pos[1]] != "."
 
-    return True
+    return False
 
 
 def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
