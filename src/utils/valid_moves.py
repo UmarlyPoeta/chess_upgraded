@@ -2,6 +2,12 @@ from utils.chess_board import ChessBoard
 
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
+    if (
+        board.board[end_pos[0]][end_pos[1]].isupper()
+        == board.board[start_pos[0]][start_pos[1]].isupper()
+    ):
+        return False
+
     direction = 1 if board.board[start_pos[0]][start_pos[1]].islower() else -1
     start_row = 1 if direction == 1 else 6
 
@@ -15,12 +21,17 @@ def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
             )
     elif abs(end_pos[1] - start_pos[1]) == 1 and end_pos[0] - start_pos[0] == direction:
         return board.board[end_pos[0]][end_pos[1]] != "."
-
     return False
 
 
 def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
     if start_pos[0] != end_pos[0] and start_pos[1] != end_pos[1]:
+        return False
+
+    if (
+        board.board[end_pos[0]][end_pos[1]].isupper()
+        == board.board[start_pos[0]][start_pos[1]].isupper()
+    ):
         return False
 
     if start_pos[0] == end_pos[0]:
@@ -33,13 +44,18 @@ def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
         for row in range(start_pos[0] + step, end_pos[0], step):
             if board.board[row][start_pos[1]] != ".":
                 return False
-        return True
+    return True
 
 
-def knight_valid_move(start_pos: tuple, end_pos: tuple) -> bool:
+def knight_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
     row_diff = abs(start_pos[0] - end_pos[0])
     col_diff = abs(start_pos[1] - end_pos[1])
-    return (row_diff == 2 and col_diff == 1) or (row_diff == 1 and col_diff == 2)
+    return (
+        (row_diff == 2 and col_diff == 1)
+        or (row_diff == 1 and col_diff == 2)
+        and board.board[end_pos[0]][end_pos[1]].isupper()
+        == board.board[start_pos[0]][start_pos[1]].isupper()
+    )
 
 
 def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
@@ -56,13 +72,22 @@ def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
         if board.board[start_pos[0] + i * row_step][start_pos[1] + i * col_step] != ".":
             return False
 
+    if (
+        board.board[end_pos[0]][end_pos[1]].isupper()
+        == board.board[start_pos[0]][start_pos[1]].isupper()
+    ):
+        return False
+
     return row_diff == col_diff
 
 
 def queen_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
-    return rook_valid_move(start_pos, end_pos, board) or bishop_valid_move(
-        start_pos, end_pos, board
-    )
+    return (
+        rook_valid_move(start_pos, end_pos, board)
+        or bishop_valid_move(start_pos, end_pos, board)
+    ) and board.board[end_pos[0]][end_pos[1]].isupper() == board.board[start_pos[0]][
+        start_pos[1]
+    ].isupper()
 
 
 def king_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
