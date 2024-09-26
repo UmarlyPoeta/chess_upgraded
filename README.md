@@ -1,4 +1,4 @@
-````markdown
+
 # Chess Upgraded
 
 A Python-based chess game that allows two players to compete in a terminal environment. The game follows standard chess rules and includes features such as move validation, piece capture, and a visual display of the chessboard using Unicode symbols.
@@ -31,7 +31,6 @@ To play Chess Upgraded, clone this repository and ensure you have Python 3.x ins
 ```bash
 git clone https://github.com/UmarlyPoeta/chess_upgraded.git
 ```
-````
 
 2. Navigate to the project directory:
 
@@ -96,7 +95,3 @@ Contributions are welcome! Please fork the repository, make your changes, and su
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-
-```
