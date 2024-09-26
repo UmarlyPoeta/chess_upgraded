@@ -18,27 +18,20 @@ class ChessBoard:
         return board
 
     def display(self):
-        def piece_to_unicode(piece):
-            if piece is None:
-                return "."
-            unicode_pieces = {
-                "King": {"white": "♔", "black": "♚"},
-                "Queen": {"white": "♕", "black": "♛"},
-                "Rook": {"white": "♖", "black": "♜"},
-                "Bishop": {"white": "♗", "black": "♝"},
-                "Knight": {"white": "♘", "black": "♞"},
-                "Pawn": {"white": "♙", "black": "♟"},
-            }
-            return unicode_pieces[type(piece).__name__][piece.color]
-
-        files = "abcdefgh"
-        ranks = "87654321"
-
-        print("  " + " ".join(files))
-        for row in range(8):
-            print(ranks[row], end=" ")
-            for col in range(8):
-                piece = self.board[row][col]
-                print(piece_to_unicode(piece), end=" ")
-            print(ranks[row])
-        print("  " + " ".join(files))
+        print("  a b c d e f g h")
+        for i, row in enumerate(self.board):
+            print(
+                f"{8 - i} "
+                + " ".join(
+                    [
+                        (
+                            piece.symbol.upper()
+                            if piece and piece.color == "black"
+                            else piece.symbol.lower() if piece else "."
+                        )
+                        for piece in row
+                    ]
+                )
+                + f" {8 - i}"
+            )
+        print("  a b c d e f g h")

@@ -20,13 +20,18 @@ class Game:
     def is_valid_move(self, start_pos, end_pos):
         # Implement basic move validation logic
         start_piece = self.board.board[start_pos[0]][start_pos[1]]
-        end_piece = self.board.board[end_pos[0]][end_pos[1]]
-        if start_piece is None or start_piece.color != self.current_turn:
+
+        if start_piece == ".":
+            print("start piece is a .")
             return False
-        if end_piece is not None and end_piece.color == self.current_turn:
+
+        if start_piece.color != self.current_turn:
+            print("start piece is not the right color")
             return False
         # Add more rules for specific pieces
         piece_type = type(start_piece).__name__.lower()
+
+        print(piece_type)
 
         match (piece_type):
             case "pawn":
@@ -63,8 +68,8 @@ class Game:
             print(f"{self.current_turn}'s turn")
             move = input("Enter your move (e.g., e2 e4): ").strip().lower()
             try:
-                start_pos = (8 - int(move[1]), ord(move[0]) - ord("a"))
-                end_pos = (8 - int(move[4]), ord(move[3]) - ord("a"))
+                start_pos = (8 - int(move[1]), int(ord(move[0]) - ord("a")))
+                end_pos = (8 - int(move[4]), int(ord(move[3]) - ord("a")))
                 if not self.move_piece(start_pos, end_pos):
                     print("Invalid move, try again.")
             except (IndexError, ValueError):

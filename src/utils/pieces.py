@@ -3,7 +3,7 @@ class ChessPiece:
         self.color = color
 
     def __str__(self):
-        return self.symbol
+        return self.symbol.lower() if self.color == "white" else self.symbol.upper()
 
 
 class King(ChessPiece):

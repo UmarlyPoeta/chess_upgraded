@@ -3,12 +3,12 @@ from utils.chess_board import ChessBoard
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
     if (
-        board.board[end_pos[0]][end_pos[1]].isupper()
-        == board.board[start_pos[0]][start_pos[1]].isupper()
+        board.board[end_pos[0]][end_pos[1]].__str__.isupper()
+        == board.board[start_pos[0]][start_pos[1]].__str__.isupper()
     ):
         return False
 
-    direction = 1 if board.board[start_pos[0]][start_pos[1]].islower() else -1
+    direction = 1 if board.board[start_pos[0]][start_pos[1]].__str__.islower() else -1
     start_row = 1 if direction == 1 else 6
 
     if end_pos[1] == start_pos[1]:  # Moving forward
