@@ -3,12 +3,12 @@ from utils.chess_board import ChessBoard
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
     if (
-        board.board[end_pos[0]][end_pos[1]].__str__.isupper()
-        == board.board[start_pos[0]][start_pos[1]].__str__.isupper()
+        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
+        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
     ):
         return False
 
-    direction = 1 if board.board[start_pos[0]][start_pos[1]].__str__.islower() else -1
+    direction = 1 if board.board[start_pos[0]][start_pos[1]].symbol.islower() else -1
     start_row = 1 if direction == 1 else 6
 
     if end_pos[1] == start_pos[1]:  # Moving forward
@@ -29,8 +29,8 @@ def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
         return False
 
     if (
-        board.board[end_pos[0]][end_pos[1]].isupper()
-        == board.board[start_pos[0]][start_pos[1]].isupper()
+        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
+        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
     ):
         return False
 
@@ -53,8 +53,8 @@ def knight_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bo
     return (
         (row_diff == 2 and col_diff == 1)
         or (row_diff == 1 and col_diff == 2)
-        and board.board[end_pos[0]][end_pos[1]].isupper()
-        == board.board[start_pos[0]][start_pos[1]].isupper()
+        and board.board[end_pos[0]][end_pos[1]].symbol.isupper()
+        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
     )
 
 
@@ -73,8 +73,8 @@ def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
             return False
 
     if (
-        board.board[end_pos[0]][end_pos[1]].isupper()
-        == board.board[start_pos[0]][start_pos[1]].isupper()
+        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
+        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
     ):
         return False
 
@@ -96,8 +96,8 @@ def king_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
 
     # Check if the destination square is occupied by a piece of the same color
     if (
-        board.board[end_pos[0]][end_pos[1]].isupper()
-        == board.board[start_pos[0]][start_pos[1]].isupper()
+        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
+        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
     ):
         return False
 
