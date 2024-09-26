@@ -82,12 +82,9 @@ def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
 
 
 def queen_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
-    return (
-        rook_valid_move(start_pos, end_pos, board)
-        or bishop_valid_move(start_pos, end_pos, board)
-    ) and board.board[end_pos[0]][end_pos[1]].isupper() == board.board[start_pos[0]][
-        start_pos[1]
-    ].isupper()
+    return rook_valid_move(start_pos, end_pos, board) or bishop_valid_move(
+        start_pos, end_pos, board
+    )
 
 
 def king_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
