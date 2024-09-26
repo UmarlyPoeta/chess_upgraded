@@ -2,13 +2,7 @@ from utils.chess_board import ChessBoard
 
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
-    if (
-        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
-        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
-    ):
-        return False
-
-    direction = 1 if board.board[start_pos[0]][start_pos[1]].symbol.islower() else -1
+    direction = 1 if board.board[start_pos[0]][start_pos[1]].islower() else -1
     start_row = 1 if direction == 1 else 6
 
     if end_pos[1] == start_pos[1]:  # Moving forward
@@ -20,18 +14,17 @@ def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
                 and board.board[end_pos[0]][end_pos[1]] == "."
             )
     elif abs(end_pos[1] - start_pos[1]) == 1 and end_pos[0] - start_pos[0] == direction:
-        return board.board[end_pos[0]][end_pos[1]] != "."
+        return (
+            board.board[end_pos[0]][end_pos[1]] != "."
+            and board.board[end_pos[0]][end_pos[1]].islower()
+            != board.board[start_pos[0]][start_pos[1]].islower()
+        )
+
     return False
 
 
 def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
     if start_pos[0] != end_pos[0] and start_pos[1] != end_pos[1]:
-        return False
-
-    if (
-        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
-        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
-    ):
         return False
 
     if start_pos[0] == end_pos[0]:
@@ -44,18 +37,13 @@ def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
         for row in range(start_pos[0] + step, end_pos[0], step):
             if board.board[row][start_pos[1]] != ".":
                 return False
-    return True
+        return True
 
 
-def knight_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
+def knight_valid_move(start_pos: tuple, end_pos: tuple) -> bool:
     row_diff = abs(start_pos[0] - end_pos[0])
     col_diff = abs(start_pos[1] - end_pos[1])
-    return (
-        (row_diff == 2 and col_diff == 1)
-        or (row_diff == 1 and col_diff == 2)
-        and board.board[end_pos[0]][end_pos[1]].symbol.isupper()
-        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
-    )
+    return (row_diff == 2 and col_diff == 1) or (row_diff == 1 and col_diff == 2)
 
 
 def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
@@ -68,15 +56,9 @@ def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: tuple):
     row_step = 1 if end_pos[0] > start_pos[0] else -1
     col_step = 1 if end_pos[1] > start_pos[1] else -1
 
-    for i in range(1, row_diff):
+    for i in range(1, row_diff + 1):
         if board.board[start_pos[0] + i * row_step][start_pos[1] + i * col_step] != ".":
             return False
-
-    if (
-        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
-        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
-    ):
-        return False
 
     return row_diff == col_diff
 
@@ -96,8 +78,8 @@ def king_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
 
     # Check if the destination square is occupied by a piece of the same color
     if (
-        board.board[end_pos[0]][end_pos[1]].symbol.isupper()
-        == board.board[start_pos[0]][start_pos[1]].symbol.isupper()
+        board.board[end_pos[0]][end_pos[1]].isupper()
+        == board.board[start_pos[0]][start_pos[1]].isupper()
     ):
         return False
 
