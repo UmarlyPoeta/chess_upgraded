@@ -6,7 +6,7 @@ class ChessBoard:
         self.board = self.create_board()
 
     def create_board(self):
-        board = [[None for _ in range(8)] for _ in range(8)]
+        board = [["." for _ in range(8)] for _ in range(8)]
         # Place pieces for both players
         for i in range(8):
             board[1][i] = Pawn("black")
@@ -26,8 +26,8 @@ class ChessBoard:
                     [
                         (
                             piece.symbol.upper()
-                            if piece and piece.color == "black"
-                            else piece.symbol.lower() if piece else "."
+                            if piece != "." and piece.color == "black"
+                            else piece.symbol.lower() if piece != "." else "."
                         )
                         for piece in row
                     ]

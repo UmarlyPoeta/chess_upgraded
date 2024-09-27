@@ -1,30 +1,34 @@
-class ChessPiece:
+class King:
     def __init__(self, color):
         self.color = color
-
-    def __str__(self):
-        return self.symbol.lower() if self.color == "white" else self.symbol.upper()
+        self.symbol = "K" if self.color == "black" else "k"
 
 
-class King(ChessPiece):
-    symbol = "K"
+class Queen():
+    def __init__(self, color):
+        self.color = color
+        self.symbol = "Q" if self.color == "black" else "q"
 
 
-class Queen(ChessPiece):
-    symbol = "Q"
+class Rook():
+    def __init__(self, color):
+        self.color = color
+        self.symbol = "R" if self.color == "black" else "r"
 
 
-class Rook(ChessPiece):
-    symbol = "R"
+class Bishop():
+    def __init__(self, color):
+        self.color = color
+        self.symbol = "B" if self.color == "black" else "b"
 
 
-class Bishop(ChessPiece):
-    symbol = "B"
+class Knight():
+    def __init__(self, color):
+        self.color = color
+        self.symbol = "N" if self.color == "black" else "n"
 
 
-class Knight(ChessPiece):
-    symbol = "N"
-
-
-class Pawn(ChessPiece):
-    symbol = "P"
+class Pawn():
+    def __init__(self, color):
+        self.color = color
+        self.symbol = "P" if self.color == "black" else "p"
