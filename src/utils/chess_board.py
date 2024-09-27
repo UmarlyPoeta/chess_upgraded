@@ -1,5 +1,5 @@
 from utils.pieces import King, Queen, Rook, Bishop, Knight, Pawn
-
+from termcolor import colored, cprint
 
 class ChessBoard:
     def __init__(self):
@@ -18,20 +18,15 @@ class ChessBoard:
         return board
 
     def display(self):
-        print("  a b c d e f g h")
+        cprint("  a b c d e f g h", "red")
         for i, row in enumerate(self.board):
-            print(
-                f"{8 - i} "
-                + " ".join(
-                    [
-                        (
-                            piece.symbol.upper()
-                            if piece != "." and piece.color == "black"
-                            else piece.symbol.lower() if piece != "." else "."
-                        )
-                        for piece in row
-                    ]
-                )
-                + f" {8 - i}"
-            )
-        print("  a b c d e f g h")
+            row_display = []
+            for piece in row:
+                if piece == ".":
+                    row_display.append(".")
+                else:
+                    color = "white" if piece.color == "white" else "grey"
+                    attrs = ["bold"] if piece.color == "white" else []
+                    row_display.append(colored(piece.symbol.upper() if piece.color == "black" else piece.symbol.lower(), color, attrs=attrs))
+            cprint((colored(f"{8 - i} ", "red") + " ".join(row_display) + colored(f" {8 - i}", "red")), "white")
+        cprint("  a b c d e f g h", "red")
