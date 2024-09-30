@@ -9,8 +9,6 @@ def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
         ):
             print("Invalid move: destination square is occupied by a piece of the same color")
             return False
-    
-        
     except Exception:
         pass
 
@@ -56,7 +54,7 @@ def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
             return False
     except Exception:
         pass
-
+    
     if start_pos[0] == end_pos[0]:
         step = 1 if end_pos[1] > start_pos[1] else -1
         for col in range(start_pos[1] + step, end_pos[1], step):
@@ -106,7 +104,7 @@ def bishop_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bo
     row_step = 1 if end_pos[0] > start_pos[0] else -1
     col_step = 1 if end_pos[1] > start_pos[1] else -1
 
-    for i in range(1, row_diff + 1):
+    for i in range(1, row_diff):
         if board.board[start_pos[0] + i * row_step][start_pos[1] + i * col_step] != ".":
             print("Invalid move: path is blocked")
             return False

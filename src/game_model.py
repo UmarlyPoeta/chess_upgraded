@@ -7,6 +7,7 @@ from utils.valid_moves import (
     knight_valid_move,
     queen_valid_move,
 )
+from utils.pawn_promotion import check_pawn_promotion
 
 
 class Game:
@@ -47,14 +48,16 @@ class Game:
             case _:
                 print("Invalid piece type") # Debugging
                 return False
-
+    
     def move_piece(self, start_pos, end_pos):
         if self.is_valid_move(start_pos, end_pos):
             if self.board.board[end_pos[0]][end_pos[1]] != ".":
-                print(f"Captured {type(self.board.board[end_pos[0]][end_pos[1]]).__name__}")
+                print(f"Captured {type(self.board.board[end_pos[0]][end_pos[1]]).__name__}") 
             self.board.board[end_pos[0]][end_pos[1]] = self.board.board[start_pos[0]][
                 start_pos[1]
             ]
+            if type(self.board.board[start_pos[0]][start_pos[1]]).__name__ == "Pawn":
+                check_pawn_promotion(start_pos, end_pos, self.board)
             self.board.board[start_pos[0]][start_pos[1]] = "."
             self.switch_turn()
             return True
