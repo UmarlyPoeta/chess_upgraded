@@ -61,6 +61,7 @@ def rook_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
             if board.board[start_pos[0]][col] != ".":
                 print("Invalid move: path is blocked")
                 return False
+        return True
     else:
         step = 1 if end_pos[0] > start_pos[0] else -1
         for row in range(start_pos[0] + step, end_pos[0], step):
