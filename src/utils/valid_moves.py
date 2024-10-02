@@ -2,6 +2,7 @@ from utils.chess_board import ChessBoard
 
 
 def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool:
+    
     try:
         if (
             board.board[end_pos[0]][end_pos[1]].symbol.isupper()
@@ -11,14 +12,10 @@ def pawn_valid_move(start_pos: tuple, end_pos: tuple, board: ChessBoard) -> bool
             return False
     except Exception:
         pass
-
-    try:
-        direction = 1 if board.board[start_pos[0]][start_pos[1]].symbol.isupper() else -1
-    except Exception:
-        print("Invalid move: start position is empty")
-        return False
     
+    direction = 1 if board.board[start_pos[0]][start_pos[1]].color == "white" else -1
     start_row = 1 if direction == 1 else 6
+    print(direction, start_row)
 
     if end_pos[1] == start_pos[1]:  # Moving forward
         print("Valid move, moving forward")
